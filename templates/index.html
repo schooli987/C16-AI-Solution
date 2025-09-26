@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Translator App</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 50px;
+            background: #121212;
+            color: #e0e0e0;
+        }
+        .container {
+            max-width: 650px;
+            margin: auto;
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+        }
+        h2 {
+            text-align: center;
+            color: #00bcd4;
+            margin-bottom: 20px;
+        }
+        label {
+            font-size: 14px;
+            color: #bbb;
+        }
+        textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px 0;
+            border-radius: 10px;
+            border: none;
+            background: #2a2a2a;
+            color: #e0e0e0;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s ease;
+        }
+        textarea:focus, select:focus {
+            background: #333;
+            border: 1px solid #00bcd4;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #00bcd4, #2196f3);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: transform 0.2s ease, background 0.3s ease;
+        }
+        button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #2196f3, #00bcd4);
+        }
+        .output {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            color: #f1f1f1;
+            font-size: 16px;
+            box-shadow: inset 0 0 8px rgba(0, 188, 212, 0.3);
+        }
+        h3 {
+            color: #90caf9;
+            margin-top: 25px;
+        }
+        ul.synonyms {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        ul.synonyms li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🌍 Translator App</h2>
+        <form method="POST">
+            <label for="text">Enter a word:</label>
+            <textarea name="text" rows="2" required>{{ text }}</textarea>
+
+            <label for="language">Translate to:</label>
+            <select name="language" required>
+                <option value="en" {% if request.form.language == 'en' %}selected{% endif %}>English</option>
+                <option value="hi" {% if request.form.language == 'hi' %}selected{% endif %}>Hindi</option>
+                <option value="fr" {% if request.form.language == 'fr' %}selected{% endif %}>French</option>
+                <option value="es" {% if request.form.language == 'es' %}selected{% endif %}>Spanish</option>
+                <option value="de" {% if request.form.language == 'de' %}selected{% endif %}>German</option>
+                <option value="ta" {% if request.form.language == 'ta' %}selected{% endif %}>Tamil</option>
+                <option value="ur" {% if request.form.language == 'ur' %}selected{% endif %}>Urdu</option>
+                
+            </select>
+
+            <button type="submit">✨ Translate</button>
+        </form>
+
+
+        {% if translated_text %}
+            <h3>Translated Text:</h3>
+            <div class="output">{{ translated_text }}</div>
+        {% endif %}
+
+        {% if synonyms %}
+            <h3>Synonyms (English):</h3>
+            <ul class="synonyms">
+                {% for syn in synonyms %}
+                    <li>{{ syn }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</body>
+</html>
