@@ -5,7 +5,7 @@ from nltk.corpus import wordnet
 import nltk
 
 # Download WordNet data
-nltk.download('wordnet')
+nltk.data.path.append("./wordnet")
 
 app = Flask(__name__)
 
@@ -51,4 +51,5 @@ def index():
         translated_text=translated_text,
         synonyms=synonyms
     )
+
 
